@@ -29,9 +29,9 @@ export default class UserList extends Component {
         }));
     };
 
-    handleEndOfList = async () => {
+    handleEndOfList = () => {
         console.log("handle end");
-        this.setState(state => ({ page: state.page + 1 }), async () => await this.getMoreUser());
+        this.setState(state => ({ page: state.page + 1 }), () => this.getMoreUser());
     };
 
     handleLoading() {
@@ -56,8 +56,8 @@ export default class UserList extends Component {
                 <FlatList
                     data={this.state.users}
                     keyExtractor={(item, index) => index.toString()}
-                    onEndReached={async () => await this.handleEndOfList()}
-                    onEndReachedThreshold={0}
+                    onEndReached={() => this.handleEndOfList()}
+                    onEndReachedThreshold={0.3}
                     ListFooterComponent={() => this.handleLoading()}
                     renderItem={({ item, index }) => (
                         <View key={item.id} style={this.mainStyles.card}>
